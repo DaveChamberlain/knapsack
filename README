@@ -12,7 +12,19 @@ The output will be the value contained within the knapsack, the list of items in
 knapsack, and the total weight when all is said and done.
 
 The way the data is layed out, the following should provide interesting results:
+    ./knapsack 200 -- Which should take everything
     ./knapsack 18  -- which will fill the backpack with 17 pounds at a value of 43
+    ./knapsack 17  -- which will fill the backpack with 17 pounds at a value of 43
     ./knapsack 5   -- which will take item1 and 2a (2 will not be taken as it has a lower value)
     ./knapsack 9   -- which will take item1 and 4 (3 has an equal weight but lesser value)
-    ./knapsack 1   -- won't take anything
+    ./knapsack 1   -- Which won't take anything
+
+In the test cases above, we are checking that:
+   o Duplicate weights will be taken if they fit  (test at 200)
+   o Taking the higher value of a duplicate weight when only one will fit (test at 5
+     the first dup as higher)
+   o Taking the higher value of a duplicate weight when only one will fit and it isn't
+     the first (test at 9)
+   o Not taking anything (test at 1)
+   o Finding a set that has the highest value when the knapsack could hold more (test at 18)
+   o Finding a set that has the highest value when the knapsack is full (test at 17)
