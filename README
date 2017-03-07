@@ -1,0 +1,18 @@
+Instructions below assume 'go' is installed on your system and that system follows a
+*nix/bash command line format.
+
+To build, clone this repository then build with:
+    go build knapsack.go
+
+That should produce a local file called "knapsack" in your directory.  To run, enter:
+    ./knapsack [weight]
+    -- where [weight] is an integer value
+
+The output will be the value contained within the knapsack, the list of items in the
+knapsack, and the total weight when all is said and done.
+
+The way the data is layed out, the following should provide interesting results:
+    ./knapsack 18  -- which will fill the backpack with 17 pounds at a value of 43
+    ./knapsack 5   -- which will take item1 and 2a (2 will not be taken as it has a lower value)
+    ./knapsack 9   -- which will take item1 and 4 (3 has an equal weight but lesser value)
+    ./knapsack 1   -- won't take anything

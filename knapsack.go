@@ -190,7 +190,7 @@ func main() {
 
     if len(os.Args) < 2 {
         fmt.Println("Please provide the max weight of the knapsack")
-        fmt.Println("Example: go run knapsack.go 18")
+        fmt.Println("Example: ", os.Args[0], " 18")
         os.Exit(1)
     }
 
