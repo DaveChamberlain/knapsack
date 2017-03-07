@@ -84,15 +84,16 @@ func (self *Matrix) dump() {
     var i int
     var w int = 0
 
-    fmt.Println("Highest value in knapsack: ", self.get_cell(self.num_items() - 1, self.max_weight).val)
-    fmt.Println("Contents of knapsack: ")
+    fmt.Println("The knapsack can hold a max weight of: ", self.max_weight)
+    fmt.Println("After filling the knapsack, we have placed the following items in it: ")
 
     contents := self.get_cell(self.num_items() - 1, self.max_weight).items
     for i = 0; i < len(contents); i++ {
         fmt.Printf("   Name: %8s  Weight: %3d   Value: %3d\n", contents[i].name, contents[i].weight, contents[i].value)
         w += contents[i].weight
     }
-    fmt.Println("Weight of knapsack contents: ", w)
+    fmt.Println("This gives a total weight of the knapsack: ", w)
+    fmt.Println("In the end, the value of the goods in the knapsack is: ", self.get_cell(self.num_items() - 1, self.max_weight).val)
 }
 
 // The backpack/knapsack struct keeps track of the matrix that manages the backpack, the possible items, and the max weight
@@ -176,6 +177,14 @@ func (self *Backpack) fill_backpack() {
     }
 }
 
+func help() {
+    fmt.Println("   ", os.Args[0], " [-h] [-d] <weight>")
+    fmt.Println("      -h       Print this help message")
+    fmt.Println("      -d       Turn on debug mode to see a narrative of the process")
+    fmt.Println("")
+    fmt.Println("      weight   The max weight in the knapsack")
+}
+
 //
 // The main function, which has the objects, the weight, and the value.
 func main() {
@@ -185,16 +194,24 @@ func main() {
                         {weight: 7, name: "Item3", value: 12}, 
                         {weight: 7, name: "Item4", value: 18}, 
                         {weight: 8, name: "Item5", value: 20}}
-
+    var i int
     var max_weight int64 = 0
 
     if len(os.Args) < 2 {
         fmt.Println("Please provide the max weight of the knapsack")
-        fmt.Println("Example: ", os.Args[0], " 18")
+        help()
         os.Exit(1)
     }
+    for i = 1; i < len(os.Args); i++ {
+        if os.Args[i] == "-h" {
+            help()
+            os.Exit(0)
+        } else if os.Args[i] == "-d" {
+            debug = true
+        }
+    }
 
-    max_weight, _ = strconv.ParseInt(os.Args[1], 10, 0)
+    max_weight, _ = strconv.ParseInt(os.Args[len(os.Args)-1], 10, 0)
     b := Backpack{}
     b.init(items[:], int(max_weight))
     b.dump()
